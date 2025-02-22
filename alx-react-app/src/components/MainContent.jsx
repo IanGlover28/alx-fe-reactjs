@@ -1,3 +1,7 @@
-<main>
-  <p>I love to visit New York, Paris, and Tokyo.</p>
-</main>
+const mainContent = () => {
+return (
+    <main>
+    <p> I love to visit New York,Paris, an Tokyo </p>
+    </main>
+) 
+}
