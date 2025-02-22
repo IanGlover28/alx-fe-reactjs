@@ -1,4 +1,4 @@
-const WelcomeMessage = () => {
+const Header = () => {
     return (
       <header>
         <h1>My Favorite Cities</h1>
@@ -6,5 +6,5 @@ const WelcomeMessage = () => {
     );
   };
   
-  export default WelcomeMessage;
+  export default Header;
   
