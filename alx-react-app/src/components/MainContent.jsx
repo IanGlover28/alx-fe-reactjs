@@ -1,8 +1,8 @@
 const mainContent = () => {
 return (
-    <main>
+    <mainContent>
     <p> I love to visit New York,Paris, an Tokyo </p>
-    </main>
+    </mainContent>
 ) ;
 };
 
