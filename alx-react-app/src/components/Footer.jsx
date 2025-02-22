@@ -1,11 +1,11 @@
-const footer = () => {
+const Footer = () => {
     return(
-        <footer>
+        <Footer>
          <p>© 2023 City Lovers</p>
-        </footer>
+        </Footer>
     );
 };
 
 
 
-export default footer;
+export default Footer;
