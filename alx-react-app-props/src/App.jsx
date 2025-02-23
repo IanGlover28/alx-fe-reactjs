@@ -1,5 +1,5 @@
 import ProfilePage from "./components/ProfilePage";
-import UserContext from "./UserContext"; // Use correct path
+import UserContext from "./context/UserContext";
 
 function App() {
   const userData = { name: "Jane Doe", email: "jane.doe@example.com" };
