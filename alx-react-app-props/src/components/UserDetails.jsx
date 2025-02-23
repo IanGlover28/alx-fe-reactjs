@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import UserContext from "../UserContext/UserContext";
+import UserContext from "../UserContext";
 
 
 
