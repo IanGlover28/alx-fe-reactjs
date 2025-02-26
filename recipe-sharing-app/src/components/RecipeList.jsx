@@ -1,4 +1,5 @@
 import useRecipeStore from './recipeStore';
+import { Link } from 'react-router-dom';
 import '../App.css';
 
 const RecipeList = () => {
@@ -10,6 +11,7 @@ const RecipeList = () => {
         <div key={recipe.id} className="recipe-card">
           <h3>{recipe.title}</h3>
           <p>{recipe.description}</p>
+          <Link to={`/recipe/${recipe.id}`} className="details-link">View Details</Link>
         </div>
       ))}
     </div>
