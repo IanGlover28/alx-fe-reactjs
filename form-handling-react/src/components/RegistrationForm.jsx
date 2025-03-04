@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
@@ -23,6 +23,11 @@ const validationSchema = Yup.object().shape({
 });
 
 const RegistrationForm = () => {
+  // Add useState for form fields
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   // Initial form values
   const initialValues = {
     username: '',
@@ -32,6 +37,11 @@ const RegistrationForm = () => {
 
   // Handle form submission
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
+    // Update local state with form values
+    setUsername(values.username);
+    setEmail(values.email);
+    setPassword(values.password);
+
     // Simulate API call
     setTimeout(() => {
       console.log('Form Submitted', values);
