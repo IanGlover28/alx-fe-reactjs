@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient } from 'react-query';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const fetchPosts = async () => {
   const response = await fetch('https://jsonplaceholder.typicode.com/posts');
@@ -9,6 +9,14 @@ const fetchPosts = async () => {
 function PostsComponent() {
   const { data, error, isLoading, isError } = useQuery('posts', fetchPosts);
   const queryClient = useQueryClient();
+  const [refetchCount, setRefetchCount] = useState(0);
+
+  useEffect(() => {
+    console.log('Component mounted');
+    return () => {
+      console.log('Component unmounted');
+    };
+  }, []);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -20,6 +28,7 @@ function PostsComponent() {
 
   const handleRefetch = async () => {
     await queryClient.refetchQueries('posts');
+    setRefetchCount(refetchCount + 1);
   };
 
   return (
@@ -31,6 +40,7 @@ function PostsComponent() {
         ))}
       </ul>
       <button onClick={handleRefetch}>Refetch Data</button>
+      <p>Refetch count: {refetchCount}</p>
     </div>
   );
 }
