@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient } from 'react-query';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 const fetchPosts = async () => {
   const response = await fetch('https://jsonplaceholder.typicode.com/posts');
