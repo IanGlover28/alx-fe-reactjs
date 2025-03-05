@@ -3,8 +3,8 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import About from "./components/About";
-import Profile from "./components/Profile";
-import BlogPost from "./components/BlogPost"; // Ensure this file exists
+import Profile from "./components/Profile"; // Ensure this file exists
+import BlogPost from "./components/BlogPost"; 
 import NotFound from "./components/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -17,7 +17,7 @@ function App() {
         
         {/* Protected Profile Route */}
         <Route 
-          path="profile/*" 
+          path="profile" 
           element={
             <ProtectedRoute>
               <Profile />
@@ -26,7 +26,7 @@ function App() {
         />
 
         {/* Dynamic Route for Blog Posts */}
-        <Route path="/blog/:id" element={<BlogPost />} />
+        <Route path="blog/:id" element={<BlogPost />} />
 
         {/* 404 Not Found Route */}
         <Route path="*" element={<NotFound />} />
