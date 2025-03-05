@@ -17,7 +17,7 @@ function App() {
         
         {/* Protected Profile Route */}
         <Route 
-          path="profile" 
+          path="/profile" 
           element={
             <ProtectedRoute>
               <Profile />
@@ -25,10 +25,10 @@ function App() {
           } 
         />
 
-        {/* Dynamic Route for Blog Posts */}
+     
         <Route path="/blog/:id" element={<BlogPost />} />
 
-        {/* 404 Not Found Route */}
+       
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
