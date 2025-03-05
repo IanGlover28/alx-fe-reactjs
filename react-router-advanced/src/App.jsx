@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import About from "./components/About";
 import Profile from "./components/Profile";
-import BlogPost from "./components/BlogPost";
+import BlogPost from "./components/BlogPost"; // Ensure this file exists
 import NotFound from "./components/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -15,7 +15,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="about" element={<About />} />
         
-        {/* Protected Route for Profile */}
+        {/* Protected Profile Route */}
         <Route 
           path="profile/*" 
           element={
@@ -25,10 +25,10 @@ function App() {
           } 
         />
 
-        {/* Dynamic Route Example */}
-        <Route path="blog/:postId" element={<BlogPost />} />
+        {/* Dynamic Route for Blog Posts */}
+        <Route path="blog/:id" element={<BlogPost />} />
 
-        {/* Catch-All Route for 404 */}
+        {/* 404 Not Found Route */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
