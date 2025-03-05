@@ -26,7 +26,7 @@ function App() {
         />
 
         {/* Dynamic Route for Blog Posts */}
-        <Route path="blog/:id" element={<BlogPost />} />
+        <Route path="/blog/:id" element={<BlogPost />} />
 
         {/* 404 Not Found Route */}
         <Route path="*" element={<NotFound />} />
