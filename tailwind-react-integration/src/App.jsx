@@ -1,13 +1,13 @@
 import { useState } from 'react'
-
-import './index.css'
+import UserProfile from './components/UserProfile'
+import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-    <h1 className="text-3xl font-bold text-gray-800 bg-blue-500">hello</h1>
+    <UserProfile />
     </>
   )
 }
