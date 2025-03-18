@@ -22,7 +22,7 @@ const RecipeList = () => {
         {recipes.map((recipe) => (
           <div key={recipe.id} className="bg-white rounded-lg shadow-md overflow-hidden">
             <img src={recipe.image} alt={recipe.title} className="w-full h-48 object-cover" />
-            <div className="p-4 ">
+            <div className="p-4 hover:bg-gray-100">
               <h2 className="text-lg font-semibold">{recipe.title}</h2>
               <p className="text-gray-600">{recipe.summary}</p>
             </div>
