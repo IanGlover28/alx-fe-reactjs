@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const fetchUserData = async ({ username, location, minRepos }) => {
+export const fetchAdvancedSearchResults = async ({ username, location, minRepos }) => {
   const query = [];
 
   if (username) query.push(`user:${username}`);
@@ -15,4 +15,4 @@ export const fetchUserData = async ({ username, location, minRepos }) => {
 };
 
 
-export default fetchUserData
+export default fetchAdvancedSearchResults
