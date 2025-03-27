@@ -22,7 +22,7 @@ const Search = () => {
         location: location.trim(),
         minRepos: minRepos.trim(),
       };
-      const data = await fetchAdvancedSearchResults(query);
+      const data = await fetchUserData(query);
       setResults(data.items || []);
     } catch (err) {
       setError("Error fetching search results. Please try again.");
