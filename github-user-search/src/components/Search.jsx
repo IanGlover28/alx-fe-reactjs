@@ -4,22 +4,20 @@ import axios from "axios";
 const Search = () => {
   const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSearch = async (e) => {
     e.preventDefault();
     if (!username.trim()) return;
 
-    setError("");
     setUser(null);
     setLoading(true);
 
     try {
       const response = await axios.get(`https://api.github.com/users/${username.trim()}`);
       setUser(response.data);
-    } catch (err) {
-      setError("Looks like we can't find the user.");
+    } catch {
+      setUser(null); // Reset user data to indicate no match found
     } finally {
       setLoading(false);
     }
@@ -52,8 +50,8 @@ const Search = () => {
       </form>
 
       {loading && <p>Loading...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {user && (
+
+      {!loading && user && (
         <div style={{ marginTop: "20px" }}>
           <img
             src={user.avatar_url}
@@ -73,6 +71,8 @@ const Search = () => {
           </p>
         </div>
       )}
+
+      {!loading && !user && username && <p>Looks like we can't find the user</p>}
     </div>
   );
 };
