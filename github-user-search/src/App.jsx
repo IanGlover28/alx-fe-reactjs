@@ -1,34 +1,51 @@
-import React, { useState } from 'react';
-import SearchBar from './components/SearchBar';
-import { fetchGitHubUser } from './services/githubService';
+import React, { useState } from "react";
+import Search from "./components/Search";
+import { fetchUserData } from "./services/githubService";
 
 const App = () => {
   const [user, setUser] = useState(null);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSearch = async (username) => {
-    setError('');
+    setError("");
     setUser(null);
+    setLoading(true);
+
     try {
-      const userData = await fetchGitHubUser(username);
+      const userData = await fetchUserData(username);
       setUser(userData);
     } catch (err) {
       setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="app">
+    <div style={{ textAlign: "center", padding: "20px" }}>
       <h1>GitHub User Search</h1>
-      <SearchBar onSearch={handleSearch} />
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <Search onSearch={handleSearch} />
+      {loading && <p>Loading...</p>}
+      {error && <p style={{ color: "red" }}>Looks like we can't find the user.</p>}
       {user && (
-        <div>
-          <h2>{user.name}</h2>
-          <p>{user.bio}</p>
-          <a href={user.html_url} target="_blank" rel="noopener noreferrer">
-            View GitHub Profile
-          </a>
+        <div style={{ marginTop: "20px" }}>
+          <img
+            src={user.avatar_url}
+            alt={user.login}
+            style={{ width: "150px", borderRadius: "50%" }}
+          />
+          <h2>{user.name || "No Name Available"}</h2>
+          <p>
+            <a
+              href={user.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "blue", textDecoration: "underline" }}
+            >
+              Visit GitHub Profile
+            </a>
+          </p>
         </div>
       )}
     </div>
