@@ -72,7 +72,7 @@ const Search = () => {
         </div>
       )}
 
-      {!loading && !user && username && <p>Looks like we can't find the user</p>}
+      {!loading && !user && username && <p>"Looks like we can't find the user"</p>}
     </div>
   );
 };
