@@ -1,78 +1,101 @@
 import React, { useState } from "react";
-import { fetchUserData } from "../services/githubService";
+import { fetchAdvancedSearchResults } from "../services/githubService";
+import "tailwindcss"
 
 const Search = () => {
   const [username, setUsername] = useState("");
-  const [user, setUser] = useState(null);
+  const [location, setLocation] = useState("");
+  const [minRepos, setMinRepos] = useState("");
+  const [results, setResults] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    if (!username.trim()) return;
-
     setError("");
-    setUser(null);
+    setResults([]);
     setLoading(true);
 
     try {
-      const data = await fetchUserData(username.trim());
-      setUser(data);
+      const query = {
+        username: username.trim(),
+        location: location.trim(),
+        minRepos: minRepos.trim(),
+      };
+      const data = await fetchAdvancedSearchResults(query);
+      setResults(data.items || []);
     } catch (err) {
-      setError("Looks like we cant find the user");
+      setError("Error fetching search results. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div style={{ textAlign: "center", padding: "20px" }}>
-      <form onSubmit={handleSearch} style={{ marginBottom: "20px" }}>
+    <div className="p-8 ">
+      <form
+        onSubmit={handleSearch}
+        className="max-w-xl mx-auto bg-white p-6 rounded-lg shadow-md space-y-4"
+      >
         <input
           type="text"
-          placeholder="Enter GitHub username..."
+          placeholder="GitHub Username (optional)"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          style={{
-            padding: "10px",
-            fontSize: "16px",
-            width: "250px",
-          }}
+          className="w-full p-3 border rounded-lg"
+        />
+        <input
+          type="text"
+          placeholder="Location (e.g., San Francisco)"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          className="w-full p-3 border rounded-lg"
+        />
+        <input
+          type="number"
+          placeholder="Minimum Repositories"
+          value={minRepos}
+          onChange={(e) => setMinRepos(e.target.value)}
+          className="w-full p-3 border rounded-lg"
         />
         <button
           type="submit"
-          style={{
-            padding: "10px 20px",
-            fontSize: "16px",
-            marginLeft: "10px",
-          }}
+          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
         >
           Search
         </button>
       </form>
 
-      {loading && <p>Loading...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {user && (
-        <div style={{ marginTop: "20px" }}>
-          <img
-            src={user.avatar_url}
-            alt={user.login}
-            style={{ width: "150px", borderRadius: "50%" }}
-          />
-          <h2>{user.name || "No Name Available"}</h2>
-          <p>
-            <a
-              href={user.html_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: "blue", textDecoration: "underline" }}
-            >
-              Visit GitHub Profile
-            </a>
-          </p>
-        </div>
-      )}
+      {loading && <p className="text-center text-blue-500 mt-4">Loading...</p>}
+      {error && <p className="text-center text-red-500 mt-4">{error}</p>}
+
+      <div className="mt-6">
+        {results.map((user) => (
+          <div
+            key={user.id}
+            className="bg-white p-4 rounded-lg shadow-md mb-4 flex items-center"
+          >
+            <img
+              src={user.avatar_url}
+              alt={user.login}
+              className="w-16 h-16 rounded-full mr-4"
+            />
+            <div>
+              <h2 className="text-lg font-bold">{user.login}</h2>
+              <p>{user.location || "Location not available"}</p>
+              <p>Public Repositories: {user.public_repos}</p>
+              <a
+                href={user.html_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 hover:underline"
+              >
+                View Profile
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
