@@ -1,22 +1,22 @@
 import React, { useState } from "react";
 import Search from "./components/Search";
-import { fetchUserData } from "./services/githubService";
+import axios from "axios";
 
 const App = () => {
-  const [user, setUser] = useState(null);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState(null); // To store user data
+  const [loading, setLoading] = useState(false); // To show loading state
+  const [error, setError] = useState(""); // To show error messages
 
-  const handleSearch = async (username) => {
+  const fetchUserData = async (username) => {
+    setLoading(true);
     setError("");
     setUser(null);
-    setLoading(true);
 
     try {
-      const userData = await fetchUserData(username);
-      setUser(userData);
+      const response = await axios.get(`https://api.github.com/users/${username}`);
+      setUser(response.data);
     } catch (err) {
-      setError(err.message);
+      setError("Looks like we can't find the user.");
     } finally {
       setLoading(false);
     }
@@ -25,9 +25,9 @@ const App = () => {
   return (
     <div style={{ textAlign: "center", padding: "20px" }}>
       <h1>GitHub User Search</h1>
-      <Search onSearch={handleSearch} />
+      <Search onSearch={fetchUserData} />
       {loading && <p>Loading...</p>}
-      {error && <p style={{ color: "red" }}>Looks like we can't find the user.</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
       {user && (
         <div style={{ marginTop: "20px" }}>
           <img
