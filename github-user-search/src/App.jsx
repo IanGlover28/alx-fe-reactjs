@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Search from "./components/Search";
 import axios from "axios";
-import "tailwindcss"
+
 
 const App = () => {
   const [user, setUser] = useState(null); // To store user data

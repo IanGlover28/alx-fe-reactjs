@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { fetchAdvancedSearchResults } from "../services/githubService";
-import "tailwindcss"
+
 
 const Search = () => {
   const [username, setUsername] = useState("");
@@ -32,7 +32,7 @@ const Search = () => {
   };
 
   return (
-    <div className="p-8 ">
+    <div className="p-8 bg-gray-100 min-h-screen">
       <form
         onSubmit={handleSearch}
         className="max-w-xl mx-auto bg-white p-6 rounded-lg shadow-md space-y-4"
